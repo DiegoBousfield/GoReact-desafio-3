@@ -19,8 +19,11 @@ const INTIAL_STATE = {
 export default function users(state = INTIAL_STATE, action) {
   switch (action.type) {
     case Types.ADD_REQUEST:
-      console.tron.log('1');
-      return state;
+      return { ...state, loading: true };
+    case Types.ADD_SUCCESS:
+      return { ...state, loading: false, data: [...state.data, action.payload.data] };
+    case Types.ADD_FAILURE:
+      return { ...state, loading: false, error: action.payload.error };
     default:
       return state;
   }
