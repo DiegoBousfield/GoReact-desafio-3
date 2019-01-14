@@ -41,7 +41,7 @@ class Map extends Component {
   };
 
   handleMapClick = async (e) => {
-    const [latitude, longitude] = e.lngLat;
+    const [longitude, latitude] = e.lngLat;
     const { openModal } = this.props;
 
     await openModal({ latitude, longitude });
@@ -71,7 +71,6 @@ class Map extends Component {
               }}
               src={user.avatar}
             />
-            {console.log(user)}
           </Marker>
         ))}
       </MapGL>
