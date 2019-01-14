@@ -10,16 +10,16 @@ export const Types = {
  * Reducers
  */
 const INITIAL_STATE = {
-  loading: false,
   show: false,
+  coordinates: null,
 };
 
 export default function modal(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.OPEN_MODAL:
-      return { ...state, show: true };
+      return { show: true, coordinates: action.payload.coordinates };
     case Types.CLOSE_MODAL:
-      return { ...state, show: false };
+      return { show: false, coordinates: null };
     default:
       return state;
   }
@@ -29,10 +29,11 @@ export default function modal(state = INITIAL_STATE, action) {
  * Action
  */
 export const Creators = {
-  openModal: _show => ({
+  openModal: coordinates => ({
     type: Types.OPEN_MODAL,
+    payload: { coordinates },
   }),
-  closeModal: _show => ({
+  closeModal: () => ({
     type: Types.CLOSE_MODAL,
   }),
 };

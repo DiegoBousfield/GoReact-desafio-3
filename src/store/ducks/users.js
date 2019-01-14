@@ -21,7 +21,11 @@ export default function users(state = INTIAL_STATE, action) {
     case Types.ADD_REQUEST:
       return { ...state, loading: true };
     case Types.ADD_SUCCESS:
-      return { ...state, loading: false, data: [...state.data, action.payload.data] };
+      return {
+        ...state,
+        loading: false,
+        data: [...state.data, action.payload.data],
+      };
     case Types.ADD_FAILURE:
       return { ...state, loading: false, error: action.payload.error };
     default:
@@ -33,9 +37,9 @@ export default function users(state = INTIAL_STATE, action) {
  * Actions
  */
 export const Creators = {
-  addUserRequest: user => ({
+  addUserRequest: (user, coordinates) => ({
     type: Types.ADD_REQUEST,
-    payload: { user },
+    payload: { user, coordinates },
   }),
 
   addUserSuccess: data => ({

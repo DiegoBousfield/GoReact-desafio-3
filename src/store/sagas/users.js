@@ -10,6 +10,8 @@ export function* addUser(action) {
     const userData = {
       id: data.id,
       name: data.name,
+      avatar: data.avatar_url,
+      coordinates: action.payload.coordinates,
     };
 
     yield put(UserActions.addUserSuccess(userData));

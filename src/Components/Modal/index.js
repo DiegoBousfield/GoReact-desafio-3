@@ -16,7 +16,6 @@ class Modal extends Component {
   static propTypes = {
     modal: PropTypes.shape({
       show: PropTypes.bool.isRequired,
-      loading: PropTypes.bool.isRequired,
     }).isRequired,
     closeModal: PropTypes.func.isRequired,
     addUserRequest: PropTypes.func.isRequired,
@@ -27,11 +26,15 @@ class Modal extends Component {
   };
 
   handleSubmit = (e) => {
-    const { addUserRequest } = this.props;
+    const {
+      addUserRequest,
+      modal: { coordinates },
+    } = this.props;
     const { userInput } = this.state;
 
     e.preventDefault();
-    addUserRequest(userInput);
+
+    addUserRequest(userInput, coordinates);
 
     this.setState({ userInput: '' });
   };
@@ -42,10 +45,10 @@ class Modal extends Component {
     return (
       <ReactModal className="add-user" isOpen={modal.show} onRequestClose={closeModal}>
         <h3>Adionar novo usuário</h3>
-
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
+            autoFocus
             placeholder="Usuário no Github"
             value={userInput}
             onChange={e => this.setState({ userInput: e.target.value })}

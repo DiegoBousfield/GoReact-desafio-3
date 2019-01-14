@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
+// import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Creators as modalActions } from '../../store/ducks/modal';
 
-import { UserImage } from './styles';
+import './styles.css';
 
 class Map extends Component {
   state = {
@@ -21,27 +21,30 @@ class Map extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('resize', this._resize);
+    window.addEventListener('resize', this.resize);
+    this.resize();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._resize);
+    window.removeEventListener('resize', this.resize);
   }
 
-  _resize = () => {
+  resize = () => {
+    const { viewport } = this.state;
     this.setState({
       viewport: {
-        ...this.state.viewport,
+        ...viewport,
         width: window.innerWidth,
         height: window.innerHeight,
       },
     });
   };
 
-  handleMapClick = (e) => {
-    const { openModal } = this.props;
+  handleMapClick = async (e) => {
     const [latitude, longitude] = e.lngLat;
-    openModal();
+    const { openModal } = this.props;
+
+    await openModal({ latitude, longitude });
   };
 
   render() {
@@ -53,22 +56,36 @@ class Map extends Component {
         mapboxApiAccessToken="pk.eyJ1IjoiZGllZ29ib3VzZmllbGQiLCJhIjoiY2pxamhqOW9wMndrMjQzbGJ6ZmJ1Z2lxbyJ9.aPfYQXaMwTolX9OzhWQ_Qw"
         onViewportChange={viewport => this.setState({ viewport })}
       >
-        <Marker
-          latitude={-23.5439948}
-          longitude={-46.6065452}
-          onClick={this.handleMapClick}
-          captureClick
-        >
-          <UserImage alt="" src="https://avatars2.githubusercontent.com/u/2254731?v=4" />
-        </Marker>
+        {this.props.users.data.map(user => (
+          <Marker
+            latitude={user.coordinates.latitude}
+            longitude={user.coordinates.longitude}
+            key={user.id}
+          >
+            <img
+              alt=""
+              style={{
+                borderRadius: 100,
+                width: 48,
+                height: 48,
+              }}
+              src={user.avatar}
+            />
+            {console.log(user)}
+          </Marker>
+        ))}
       </MapGL>
     );
   }
 }
 
+const mapStateToProps = ({ users }) => ({
+  users,
+});
+
 const mapDispatchToProps = dispatch => bindActionCreators(modalActions, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Map);
