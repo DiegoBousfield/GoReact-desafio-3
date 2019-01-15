@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
 
+import PropTypes from 'prop-types';
+
 // import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { bindActionCreators } from 'redux';
@@ -10,6 +12,13 @@ import { Creators as modalActions } from '../../store/ducks/modal';
 import './styles.css';
 
 class Map extends Component {
+  static propTypes = {
+    users: PropTypes.shape({
+      data: PropTypes.array,
+    }).isRequired,
+    openModal: PropTypes.func.isRequired,
+  };
+
   state = {
     viewport: {
       width: window.innerWidth,
@@ -48,6 +57,7 @@ class Map extends Component {
   };
 
   render() {
+    const { users } = this.props;
     return (
       <MapGL
         {...this.state.viewport}
@@ -56,21 +66,13 @@ class Map extends Component {
         mapboxApiAccessToken="pk.eyJ1IjoiZGllZ29ib3VzZmllbGQiLCJhIjoiY2pxamhqOW9wMndrMjQzbGJ6ZmJ1Z2lxbyJ9.aPfYQXaMwTolX9OzhWQ_Qw"
         onViewportChange={viewport => this.setState({ viewport })}
       >
-        {this.props.users.data.map(user => (
+        {users.data.map(user => (
           <Marker
             latitude={user.coordinates.latitude}
             longitude={user.coordinates.longitude}
             key={user.id}
           >
-            <img
-              alt=""
-              style={{
-                borderRadius: 100,
-                width: 48,
-                height: 48,
-              }}
-              src={user.avatar}
-            />
+            <img className="avatar" alt={`${user.name} profile avartar`} src={user.avatar} />
           </Marker>
         ))}
       </MapGL>
