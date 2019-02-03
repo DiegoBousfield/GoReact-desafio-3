@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 
-import 'font-awesome/css/font-awesome.css';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
