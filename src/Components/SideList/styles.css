@@ -1,14 +1,82 @@
-.list-wrapper {
-  position: fixed;
-  top: 20px;
-  left: 20px;
+.side-list {
   width: 25%;
-  height: 90%;
-  z-index: 1;
-  box-shadow: 0 0 10px black;
+  background: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  height: 94%;
   border-radius: 5px;
+}
+
+.side-list p {
+  font-weight: bold;
+  font-size: 14px;
+  color: #000;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.side-list ul {
+  list-style-type: none;
+}
+
+.side-list ul li {
+  border-bottom: 1px solid #666;
+}
+
+.side-list ul li div {
   display: flex;
-  flex-direction: column;
+  flex: 1;
   align-items: center;
-  background-color: white;
+  justify-content: center;
+  padding: 15px;
+}
+
+.side-list ul li div button {
+  cursor: pointer;
+}
+
+.side-list ul li div img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.side-list ul li div .user-info {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+}
+
+.side-list ul li div .user-info h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.side-list ul li div .user-info h3 {
+  padding: 0;
+  margin: 0;
+  margin-top: 3px;
+  font-size: 12px;
+  color: #666;
+}
+
+.side-list ul li button {
+  background: transparent;
+}
+.side-list ul li div i {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.side-list ul li div .remove {
+  color: #f00;
+}
+
+.side-list ul li div .go-to-page {
+  color: #333;
+  font-weight: bold;
 }
