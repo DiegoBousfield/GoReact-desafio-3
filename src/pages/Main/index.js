@@ -6,8 +6,8 @@ import SideList from '../../Components/SideList';
 
 const Main = () => (
   <Fragment>
-    <SideList />
     <Map />
+    <SideList />
     <Modal />
   </Fragment>
 );
